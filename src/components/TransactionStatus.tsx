@@ -1,5 +1,5 @@
 import React from 'react';
-import { RefreshCw, CheckCircle2, AlertCircle, ExternalLink, X } from 'lucide-react';
+import { RefreshCw, CheckCircle2, AlertCircle, ExternalLink, X, Smartphone } from 'lucide-react';
 import { TxStep } from '../hooks/useMultisend';
 
 interface TransactionStatusProps {
@@ -31,6 +31,8 @@ export const TransactionStatus: React.FC<TransactionStatusProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  const isWaitingWallet = step === 'approving' || step === 'sending';
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md animate-in fade-in">
       <div className="bg-slate-900 border border-slate-700/80 rounded-2xl max-w-md w-full p-6 shadow-2xl overflow-hidden relative">
@@ -42,6 +44,19 @@ export const TransactionStatus: React.FC<TransactionStatusProps> = ({
         </button>
 
         <h3 className="text-base font-bold text-slate-100 mb-4">Transaction Status</h3>
+
+        {/* Action Required Banner for Wallet Confirmation */}
+        {isWaitingWallet && (
+          <div className="p-3.5 bg-emerald-950/60 border border-emerald-500/40 rounded-xl mb-4 text-xs text-emerald-300 flex items-center gap-3 animate-pulse">
+            <Smartphone className="w-5 h-5 text-emerald-400 shrink-0" />
+            <div>
+              <span className="font-bold text-emerald-200 block mb-0.5">Check Your Wallet App</span>
+              <p className="text-emerald-300/80">
+                Please open <strong>Trust Wallet / MetaMask</strong> on your device and tap <strong>Approve / Confirm</strong>.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Stepper Progress */}
         <div className="space-y-4 mb-6">

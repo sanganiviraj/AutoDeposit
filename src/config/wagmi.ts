@@ -1,15 +1,15 @@
 import { createAppKit } from '@reown/appkit/react';
 import { WagmiAdapter } from '@reown/appkit-adapter-wagmi';
-import { bscMainnet, bscTestnet } from './chains';
+import { bsc, bscTestnet } from '@reown/appkit/networks';
 
 // Read Reown Project ID from environment variable
 export const projectId =
   import.meta.env.VITE_REOWN_PROJECT_ID || 'b56e64d476b8b60018599f7123456789';
 
-export const networks = [bscTestnet, bscMainnet] as const;
+export const networks = [bsc, bscTestnet] as const;
 
 export const wagmiAdapter = new WagmiAdapter({
-  networks: [bscTestnet, bscMainnet],
+  networks: [bsc, bscTestnet],
   projectId,
   ssr: true,
 });
@@ -19,8 +19,8 @@ export const wagmiConfig = wagmiAdapter.wagmiConfig;
 // Initialize Reown AppKit Web3 modal
 export const modal = createAppKit({
   adapters: [wagmiAdapter],
-  networks: [bscTestnet, bscMainnet],
-  defaultNetwork: bscTestnet,
+  networks: [bsc, bscTestnet],
+  defaultNetwork: bsc,
   projectId,
   metadata: {
     name: 'BSC USDT Multisender',
