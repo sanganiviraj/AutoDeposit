@@ -118,7 +118,7 @@ export const RecipientTable: React.FC<RecipientTableProps> = ({
                 <div className="sm:col-span-4 relative">
                   <input
                     type="text"
-                    placeholder="Amount (e.g. 100)"
+                    placeholder="Amount (e.g. 1)"
                     value={item.amount}
                     onChange={(e) => onUpdateRecipient(item.id, 'amount', e.target.value)}
                     className={`w-full px-3.5 py-2.5 bg-slate-900 border rounded-lg text-xs sm:text-sm font-mono text-slate-100 placeholder-slate-500 focus:outline-none transition-all pr-14 ${
