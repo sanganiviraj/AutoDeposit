@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production & Build Outputs
+dist/
+dist-ssr/
+build/
+
+# Hardhat & Solidity Compilation Outputs
+artifacts/
+cache/
+typechain-types/
+coverage/
+coverage.json
+
+# Environment Variables & Secrets (NEVER COMMIT PRIVATE KEYS OR API KEYS)
+.env
+.env.local
+.env.*.local
+*.pem
+
+# Logs & Debugging
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# Editor & OS Files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Temporary Files
+*.log
+*.tmp
