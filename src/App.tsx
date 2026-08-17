@@ -285,17 +285,25 @@ export const App: React.FC = () => {
 
               <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3">
                 {/* Custom Token Input */}
-                <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-2.5 text-xs">
-                  <label className="block text-[11px] font-semibold text-slate-400 mb-1">
-                    Token Contract ({tokenSymbol})
-                  </label>
+                <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs">
+                  <div className="flex items-center justify-between gap-2 mb-1">
+                    <label className="text-[11px] font-bold text-slate-300">
+                      Selected Token Contract
+                    </label>
+                    <span className="text-[10px] text-emerald-400 font-semibold px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+                      Default: BEP-20 {tokenSymbol}
+                    </span>
+                  </div>
                   <input
                     type="text"
                     value={customTokenAddr}
                     onChange={(e) => setCustomTokenAddr(e.target.value)}
-                    placeholder={defaultToken.address}
-                    className="w-full sm:w-72 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500"
+                    placeholder={`Default: ${defaultToken.address}`}
+                    className="w-full sm:w-80 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500 placeholder:text-slate-500"
                   />
+                  <span className="block text-[10px] text-slate-500 mt-1">
+                    Optional: Leave default for USDT, or paste custom token address
+                  </span>
                 </div>
               </div>
             </div>
