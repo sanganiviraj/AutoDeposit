@@ -1,13 +1,97 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+:root {
+  --bg-surface: #051424;
+  --bg-canvas: #05070B;
+  --primary-gold: #F3BA2F;
+  --primary-fixed-dim: #F7BE33;
+  --secondary-blue: #5B8CFF;
+  --tertiary-emerald: #6BF8BA;
+  --on-surface: #D4E4FA;
+  --on-surface-variant: #D3C5AD;
+}
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-100 antialiased selection:bg-emerald-500 selection:text-slate-950;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: var(--bg-canvas);
+    color: var(--on-surface);
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    antialiased: true;
+    overflow-x: hidden;
+  }
+
+  code, pre, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
   }
 }
 
-/* Custom Web3 Glassmorphism and Modal Animations */
+/* Obsidian Infrastructure Glassmorphism & Layers */
+.glass-card, .layer-1 {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%), rgba(11, 15, 23, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.layer-2 {
+  background-color: #080B12;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.layer-floating {
+  background-color: #101726;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Glow effects */
+.text-glow {
+  text-shadow: 0 0 20px rgba(243, 186, 47, 0.35);
+}
+
+.ambient-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(243, 186, 47, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.btn-primary {
+  background-color: #F3BA2F;
+  color: #0B0F17;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 0 20px rgba(243, 186, 47, 0.4);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #D4E4FA;
+  font-weight: 600;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Custom Web3 Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -23,22 +107,23 @@
   animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Custom Scrollbar for Recipient Tables */
+/* Custom Scrollbar for tables */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(15, 23, 42, 0.6);
+  background: #080B12; 
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(51, 65, 85, 0.8);
+  background: rgba(255, 255, 255, 0.12); 
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(16, 185, 129, 0.6);
+  background: rgba(243, 186, 47, 0.4); 
 }
+
