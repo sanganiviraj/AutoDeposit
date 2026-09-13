@@ -1,6 +1,8 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useAccount, useChainId, useBalance } from 'wagmi';
-import { Header } from './components/Header';
+import { Header, ViewTab } from './components/Header';
+import { ShaderBackground } from './components/ShaderBackground';
+import { LandingPage } from './components/LandingPage';
 import { NetworkWarning } from './components/NetworkWarning';
 import { SecurityWarnings } from './components/SecurityWarnings';
 import { SecurityShield } from './components/SecurityShield';
@@ -22,14 +24,14 @@ import {
   saveTransactionRecord,
   TransactionHistoryRecord,
 } from './utils/history';
-import { Wallet, AlertTriangle, CheckCircle2, ArrowRight, Coins } from 'lucide-react';
+import { Wallet, AlertTriangle, CheckCircle2, ArrowRight, Coins, ShieldCheck, Sparkles, Layers } from 'lucide-react';
 
 export const App: React.FC = () => {
   const { address: userAddress, isConnected } = useAccount();
   const chainId = useChainId();
 
-  // Navigation tab state ('sender' | 'history')
-  const [activeTab, setActiveTab] = useState<'sender' | 'history'>('sender');
+  // Navigation tab state ('landing' | 'sender' | 'history')
+  const [activeTab, setActiveTab] = useState<ViewTab>('landing');
 
   // Transaction history state
   const [history, setHistory] = useState<TransactionHistoryRecord[]>([]);
@@ -222,175 +224,213 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950">
+    <div className="min-h-screen bg-[#05070B] text-[#D4E4FA] font-sans selection:bg-[#F3BA2F] selection:text-[#0B0F17] relative">
+      {/* WebGL 2D Simplex Noise Shader Canvas Background */}
+      <ShaderBackground />
+
+      {/* Top Fixed Header */}
       <Header
         activeTab={activeTab}
         onTabChange={setActiveTab}
         historyCount={history.length}
       />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-        <NetworkWarning />
-        <SecurityWarnings />
+      {/* Main App Content View Switcher */}
+      {activeTab === 'landing' ? (
+        <LandingPage onLaunchApp={() => setActiveTab('sender')} />
+      ) : (
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-16 relative z-10 animate-in">
+          <NetworkWarning />
+          <SecurityWarnings />
 
-        {activeTab === 'history' ? (
-          <TransactionHistory
-            history={history}
-            onClearHistory={() => setHistory([])}
-            onNavigateSender={() => setActiveTab('sender')}
-          />
-        ) : (
-          <>
-            {/* User Balance & Contract Status Banner */}
-            <div className="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-              <div className="flex flex-wrap items-center gap-6">
-                {/* Native BNB Gas Balance */}
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-amber-500/10 rounded-2xl text-amber-400 border border-amber-500/20">
-                    <Coins className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                      BNB Gas Fee Balance
-                    </span>
-                    <div className="flex items-baseline gap-1.5 mt-0.5">
-                      <span className="text-xl font-bold text-slate-100 font-mono">
-                        {isConnected ? formattedBnbBalance : '0.0000'}
-                      </span>
-                      <span className="text-xs font-bold text-amber-400">BNB</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="h-10 w-[1px] bg-slate-800 hidden sm:block"></div>
-
-                {/* Token Balance */}
-                <div className="flex items-center gap-3">
-                  <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-400 border border-emerald-500/20">
-                    <Wallet className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">
-                      {tokenSymbol} Transfer Balance
-                    </span>
-                    <div className="flex items-baseline gap-1.5 mt-0.5">
-                      <span className="text-xl font-bold text-slate-100 font-mono">
-                        {isConnected ? formattedBalance : '0.00'}
-                      </span>
-                      <span className="text-xs font-bold text-emerald-400">{tokenSymbol}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="w-full md:w-auto flex flex-col sm:flex-row gap-3">
-                {/* Custom Token Input */}
-                <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 text-xs">
-                  <div className="flex items-center justify-between gap-2 mb-1">
-                    <label className="text-[11px] font-bold text-slate-300">
-                      Selected Token Contract
-                    </label>
-                    <span className="text-[10px] text-emerald-400 font-semibold px-2 py-0.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-                      Default: BEP-20 {tokenSymbol}
-                    </span>
-                  </div>
-                  <input
-                    type="text"
-                    value={customTokenAddr}
-                    onChange={(e) => setCustomTokenAddr(e.target.value)}
-                    placeholder={`Default: ${defaultToken.address}`}
-                    className="w-full sm:w-80 px-3 py-1.5 bg-slate-900 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 focus:outline-none focus:border-emerald-500 placeholder:text-slate-500"
-                  />
-                  <span className="block text-[10px] text-slate-500 mt-1">
-                    Optional: Leave default for USDT, or paste custom token address
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Anti-Fraud Security Guardian Shield */}
-            <SecurityShield securityResult={securityResult} tokenSymbol={tokenSymbol} />
-
-            {/* CSV Importer / Exporter */}
-            <CsvHandler onImport={handleCsvImport} currentRecipients={recipients} />
-
-            {/* Recipient Table */}
-            <RecipientTable
-              recipients={recipients}
-              errors={validation.errors}
-              allowDuplicates={allowDuplicates}
-              onUpdateRecipient={handleUpdateRecipient}
-              onAddRecipient={handleAddRecipient}
-              onRemoveRecipient={handleRemoveRecipient}
-              onToggleDuplicates={() => setAllowDuplicates((prev) => !prev)}
-              tokenSymbol={tokenSymbol}
+          {activeTab === 'history' ? (
+            <TransactionHistory
+              history={history}
+              onClearHistory={() => setHistory([])}
+              onNavigateSender={() => setActiveTab('sender')}
             />
+          ) : (
+            <>
+              {/* Dashboard Title & Overview Banner */}
+              <div className="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2 text-xs font-mono text-[#F3BA2F] uppercase tracking-wider mb-1">
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>Application Dashboard</span>
+                  </div>
+                  <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Batch Token Distribution
+                  </h1>
+                  <p className="text-sm text-[#D3C5AD]/80 mt-1 max-w-xl">
+                    Distribute BEP-20 tokens to up to 100 wallet addresses in a single atomic transaction.
+                  </p>
+                </div>
+              </div>
 
-            {/* Transaction Summary Footer & Action Button */}
-            <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-2xl backdrop-blur-md">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4">
-                  <span className="text-xs text-slate-400 block mb-1">Total Recipients</span>
-                  <span className="text-xl font-bold text-slate-100">{recipients.length}</span>
+              {/* User Balance & Contract Status Banner */}
+              <div className="glass-card rounded-3xl p-6 shadow-2xl mb-8 border border-white/10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                <div className="flex flex-wrap items-center gap-8">
+                  {/* Native BNB Gas Balance */}
+                  <div className="flex items-center gap-3.5">
+                    <div className="p-3 bg-amber-400/10 rounded-2xl text-[#F3BA2F] border border-amber-400/20">
+                      <Coins className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-mono font-bold text-[#D3C5AD]/70 uppercase tracking-wider block">
+                        BNB Gas Balance
+                      </span>
+                      <div className="flex items-baseline gap-1.5 mt-0.5">
+                        <span className="text-2xl font-extrabold text-white font-mono">
+                          {isConnected ? formattedBnbBalance : '0.0000'}
+                        </span>
+                        <span className="text-xs font-bold text-[#F3BA2F]">BNB</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="h-10 w-[1px] bg-white/10 hidden sm:block"></div>
+
+                  {/* Token Balance */}
+                  <div className="flex items-center gap-3.5">
+                    <div className="p-3 bg-emerald-500/10 rounded-2xl text-[#6BF8BA] border border-emerald-500/20">
+                      <Wallet className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <span className="text-[11px] font-mono font-bold text-[#D3C5AD]/70 uppercase tracking-wider block">
+                        {tokenSymbol} Transfer Balance
+                      </span>
+                      <div className="flex items-baseline gap-1.5 mt-0.5">
+                        <span className="text-2xl font-extrabold text-white font-mono">
+                          {isConnected ? formattedBalance : '0.00'}
+                        </span>
+                        <span className="text-xs font-bold text-[#6BF8BA]">{tokenSymbol}</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4">
-                  <span className="text-xs text-slate-400 block mb-1">Total Batch Transfer</span>
-                  <span className="text-xl font-extrabold text-emerald-400">
-                    {formattedTotalStr} {tokenSymbol}
-                  </span>
+                {/* Token Selector & Custom Contract Input */}
+                <div className="w-full lg:w-auto">
+                  <div className="layer-2 rounded-2xl p-4 border border-white/10 text-xs">
+                    <div className="flex items-center justify-between gap-3 mb-1.5">
+                      <label className="text-xs font-bold text-white">
+                        Selected Token Contract
+                      </label>
+                      <span className="text-[10px] text-[#F3BA2F] font-mono font-bold px-2 py-0.5 bg-amber-400/10 border border-amber-400/30 rounded-full">
+                        BEP-20 {tokenSymbol}
+                      </span>
+                    </div>
+                    <input
+                      type="text"
+                      value={customTokenAddr}
+                      onChange={(e) => setCustomTokenAddr(e.target.value)}
+                      placeholder={`Default: ${defaultToken.address}`}
+                      className="w-full sm:w-80 px-3.5 py-2 bg-[#05070B] border border-white/10 rounded-xl text-xs font-mono text-white focus:outline-none focus:border-[#F3BA2F]/70 placeholder:text-slate-600 transition-colors"
+                    />
+                    <span className="block text-[10px] text-[#D3C5AD]/60 mt-1">
+                      Default: Official USDT. Paste custom BEP-20 token address if needed.
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* 12-Column Dashboard Grid Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                {/* Left 8-Column Section: CSV Handler & Recipient Table */}
+                <div className="lg:col-span-8 space-y-6">
+                  {/* CSV Importer / Exporter */}
+                  <CsvHandler onImport={handleCsvImport} currentRecipients={recipients} />
+
+                  {/* Recipient Table */}
+                  <RecipientTable
+                    recipients={recipients}
+                    errors={validation.errors}
+                    allowDuplicates={allowDuplicates}
+                    onUpdateRecipient={handleUpdateRecipient}
+                    onAddRecipient={handleAddRecipient}
+                    onRemoveRecipient={handleRemoveRecipient}
+                    onToggleDuplicates={() => setAllowDuplicates((prev) => !prev)}
+                    tokenSymbol={tokenSymbol}
+                  />
                 </div>
 
-                <div className="bg-slate-950/60 border border-slate-800/80 rounded-xl p-4">
-                  <span className="text-xs text-slate-400 block mb-1">Required Approval</span>
-                  <span className="text-sm font-semibold text-slate-200">
-                    {isNeedsApproval ? (
-                      <span className="text-amber-400 flex items-center gap-1">
-                        <AlertTriangle className="w-4 h-4" /> Exact Approval Needed
-                      </span>
-                    ) : (
-                      <span className="text-emerald-400 flex items-center gap-1">
-                        <CheckCircle2 className="w-4 h-4" /> Sufficient Allowance
-                      </span>
+                {/* Right 4-Column Section: Summary Widget & Web3 Action Center */}
+                <div className="lg:col-span-4 space-y-6">
+                  {/* Anti-Fraud Guardian Shield */}
+                  <SecurityShield securityResult={securityResult} tokenSymbol={tokenSymbol} />
+
+                  {/* Summary & Execution Panel */}
+                  <div className="bg-[#0B0F17]/90 backdrop-blur-xl rounded-2xl p-6 border border-white/10 shadow-xl space-y-5 sticky top-28">
+                    <h3 className="font-semibold text-white text-base flex items-center gap-2 border-b border-white/10 pb-3 tracking-tight">
+                      <Layers className="w-5 h-5 text-[#F3BA2F]" />
+                      <span>Distribution Summary</span>
+                    </h3>
+
+                    <div className="space-y-3">
+                      <div className="bg-[#05070B] p-3.5 rounded-xl border border-white/5 flex justify-between items-center">
+                        <span className="text-xs text-slate-400 font-medium">Total Recipients</span>
+                        <span className="text-base font-bold font-mono text-white">{recipients.length}</span>
+                      </div>
+
+                      <div className="bg-[#05070B] p-3.5 rounded-xl border border-white/5 flex justify-between items-center">
+                        <span className="text-xs text-slate-400 font-medium">Total Transfer</span>
+                        <span className="text-lg font-bold font-mono text-[#F3BA2F] text-glow">
+                          {formattedTotalStr} {tokenSymbol}
+                        </span>
+                      </div>
+
+                      <div className="bg-[#05070B] p-3.5 rounded-xl border border-white/5 flex justify-between items-center">
+                        <span className="text-xs text-slate-400 font-medium">Allowance Status</span>
+                        <span className="text-xs font-semibold">
+                          {isNeedsApproval ? (
+                            <span className="text-amber-400 flex items-center gap-1 font-mono">
+                              <AlertTriangle className="w-3.5 h-3.5" /> Approval Needed
+                            </span>
+                          ) : (
+                            <span className="text-[#6BF8BA] flex items-center gap-1 font-mono">
+                              <CheckCircle2 className="w-3.5 h-3.5" /> Approved
+                            </span>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Warnings */}
+                    {isInsufficientBalance && (
+                      <div className="p-3.5 bg-red-500/10 border border-red-500/30 rounded-xl text-xs text-red-300 flex items-start gap-2.5 font-mono">
+                        <AlertTriangle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
+                        <span>Insufficient {tokenSymbol} balance in wallet for total batch transfer.</span>
+                      </div>
                     )}
-                  </span>
+
+                    {!validation.isValid && validation.errors.length > 0 && (
+                      <div className="p-3.5 bg-amber-500/10 border border-amber-500/30 rounded-xl text-xs text-amber-300 flex items-start gap-2.5 font-mono">
+                        <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                        <span>Resolve recipient list validation errors before proceeding.</span>
+                      </div>
+                    )}
+
+                    {/* Action Button */}
+                    <button
+                      onClick={handleOpenPreview}
+                      disabled={!isConnected || !validation.isValid || isInsufficientBalance || !securityResult.isSafe}
+                      className="w-full py-4 bg-gradient-to-r from-[#F3BA2F] to-[#f7be33] hover:from-[#f7be33] hover:to-[#F3BA2F] text-[#0B0F17] disabled:opacity-40 disabled:cursor-not-allowed font-extrabold text-sm rounded-xl transition-all shadow-[0_4px_20px_rgba(243,186,47,0.35)] hover:shadow-[0_6px_25px_rgba(243,186,47,0.5)] flex items-center justify-center gap-2.5 active:scale-[0.99] cursor-pointer"
+                    >
+                      <span>Preview & Execute Batch</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </button>
+
+                    <p className="text-[11px] text-center text-slate-400 font-medium pt-1">
+                      Zero protocol fees. Standard BSC network gas applies.
+                    </p>
+                  </div>
+
                 </div>
               </div>
-
-              {/* Validation Warnings */}
-              {isInsufficientBalance && (
-                <div className="mb-4 p-3 bg-red-950/60 border border-red-500/40 rounded-xl text-xs text-red-300 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-red-400 shrink-0" />
-                  <span>Insufficient {tokenSymbol} balance in wallet for total batch transfer.</span>
-                </div>
-              )}
-
-              {!validation.isValid && validation.errors.length > 0 && (
-                <div className="mb-4 p-3 bg-amber-950/60 border border-amber-500/40 rounded-xl text-xs text-amber-300 flex items-center gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0" />
-                  <span>Please resolve all recipient validation errors before proceeding.</span>
-                </div>
-              )}
-
-              {/* Primary Action Button */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
-                <span className="text-xs text-slate-400">
-                  Only standard BSC network gas is charged. Zero multisender fees.
-                </span>
-
-                <button
-                  onClick={handleOpenPreview}
-                  disabled={!isConnected || !validation.isValid || isInsufficientBalance || !securityResult.isSafe}
-                  className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-500 disabled:opacity-40 disabled:cursor-not-allowed text-white font-bold text-sm rounded-xl shadow-xl shadow-emerald-950/60 transition-all flex items-center justify-center gap-2"
-                >
-                  <span>Preview & Send</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          </>
-        )}
-      </main>
+            </>
+          )}
+        </main>
+      )}
 
       {/* Modals */}
       <PreviewModal
@@ -424,3 +464,4 @@ export const App: React.FC = () => {
     </div>
   );
 };
+

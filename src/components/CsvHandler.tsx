@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Upload, Download, FileSpreadsheet, AlertCircle } from 'lucide-react';
+import { Upload, Download, FileSpreadsheet, AlertCircle, FileOutput } from 'lucide-react';
 import { parseRecipientCSV, generateSampleCSV, exportToCSV } from '../utils/csv';
 import { RecipientInput } from '../utils/validation';
 
@@ -61,19 +61,25 @@ export const CsvHandler: React.FC<CsvHandlerProps> = ({ onImport, currentRecipie
   };
 
   return (
-    <div className="bg-slate-900/40 border border-slate-800 rounded-xl p-4 mb-6">
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <h4 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
-            <FileSpreadsheet className="w-4 h-4 text-emerald-400" />
-            CSV Import / Export
-          </h4>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Bulk load addresses and amounts via CSV format (<code className="text-slate-300">address,amount</code>). Max 100 rows.
-          </p>
+    <div className="bg-[#0B0F17]/90 backdrop-blur-xl border border-white/10 rounded-2xl p-5 shadow-xl">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        {/* Left Info */}
+        <div className="flex items-center gap-3.5">
+          <div className="w-10 h-10 rounded-xl bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center text-[#F3BA2F] shrink-0">
+            <FileSpreadsheet className="w-5 h-5" />
+          </div>
+          <div>
+            <h4 className="text-sm font-semibold text-white tracking-tight">
+              CSV Batch Data Pipeline
+            </h4>
+            <p className="text-xs text-slate-400 mt-0.5">
+              Bulk load addresses & amounts via CSV (<code className="px-1.5 py-0.5 rounded bg-white/5 border border-white/10 text-amber-400 font-mono text-[11px]">address,amount</code>). Max 100 rows.
+            </p>
+          </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+        {/* Right Side: Cohesive Segmented Control Bar */}
+        <div className="bg-[#05070B] p-1.5 border border-white/10 rounded-xl flex flex-wrap items-center gap-1.5 shrink-0 self-start md:self-auto">
           <input
             type="file"
             ref={fileInputRef}
@@ -81,33 +87,39 @@ export const CsvHandler: React.FC<CsvHandlerProps> = ({ onImport, currentRecipie
             accept=".csv,text/csv"
             className="hidden"
           />
+          {/* Import CSV */}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex-1 sm:flex-initial px-3.5 py-2 bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
+            className="px-3.5 py-2 bg-[#F3BA2F] hover:bg-[#f7be33] text-[#0B0F17] font-bold text-xs rounded-lg transition-all flex items-center gap-1.5 active:scale-95 cursor-pointer shadow-sm"
           >
             <Upload className="w-3.5 h-3.5" />
-            Import CSV
+            <span>Import CSV</span>
           </button>
+
+          {/* Sample CSV */}
           <button
             onClick={handleDownloadSample}
-            className="flex-1 sm:flex-initial px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
+            className="px-3.5 py-2 bg-transparent hover:bg-white/5 text-slate-300 hover:text-white font-medium text-xs rounded-lg transition-all flex items-center gap-1.5 cursor-pointer"
           >
-            <Download className="w-3.5 h-3.5" />
-            Sample CSV
+            <Download className="w-3.5 h-3.5 text-slate-400" />
+            <span>Template</span>
           </button>
+
+          {/* Export CSV */}
           {currentRecipients.length > 0 && (
             <button
               onClick={handleExportCurrent}
-              className="flex-1 sm:flex-initial px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-lg text-xs font-semibold transition-all flex items-center justify-center gap-1.5"
+              className="px-3.5 py-2 bg-transparent hover:bg-white/5 text-slate-300 hover:text-white font-medium text-xs rounded-lg transition-all flex items-center gap-1.5 cursor-pointer border-l border-white/10 pl-3"
             >
-              Export ({currentRecipients.length})
+              <FileOutput className="w-3.5 h-3.5 text-slate-400" />
+              <span>Export ({currentRecipients.length})</span>
             </button>
           )}
         </div>
       </div>
 
       {csvError && (
-        <div className="mt-3 p-3 bg-red-950/60 border border-red-500/30 rounded-lg text-xs text-red-300 flex items-start gap-2">
+        <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded-xl text-xs text-red-300 flex items-start gap-2.5 font-mono">
           <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
           <span>{csvError}</span>
         </div>
@@ -115,3 +127,6 @@ export const CsvHandler: React.FC<CsvHandlerProps> = ({ onImport, currentRecipie
     </div>
   );
 };
+
+
+
