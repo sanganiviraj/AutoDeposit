@@ -87,11 +87,11 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? "blur(16px)" : "blur(12px)",
+        backdropFilter: visible ? "blur(20px)" : "blur(16px)",
         boxShadow: visible
-          ? "0 0 24px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.15)"
-          : "0 4px 20px rgba(0, 0, 0, 0.2)",
-        width: visible ? "65%" : "100%",
+          ? "0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(243, 186, 47, 0.25)"
+          : "0 4px 24px rgba(0, 0, 0, 0.4)",
+        width: visible ? "68%" : "100%",
         y: visible ? 10 : 0,
       }}
       transition={{
@@ -103,8 +103,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "750px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-[#051424]/90 border border-white/10 px-6 py-2.5 lg:flex backdrop-blur-md shadow-2xl",
-        visible && "bg-[#051424]/95 border-amber-400/30",
+        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-[#0E121B]/90 border border-white/10 px-6 py-2.5 lg:flex backdrop-blur-xl shadow-2xl font-sans",
+        visible && "bg-[#0E121B]/95 border-[#F3BA2F]/30",
         className,
       )}
     >
@@ -120,7 +120,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     <motion.div
       onMouseLeave={() => setHovered(null)}
       className={cn(
-        "flex flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium transition duration-200 lg:flex",
+        "flex flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium transition duration-200 lg:flex font-sans",
         className,
       )}
     >
@@ -135,10 +135,10 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
             if (onItemClick) onItemClick();
           }}
           className={cn(
-            "relative px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer",
+            "relative px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer font-sans",
             item.isActive
-              ? "text-[#F3BA2F] font-extrabold"
-              : "text-[#D4E4FA]/80 hover:text-white"
+              ? "text-[#F3BA2F] font-bold"
+              : "text-slate-300 hover:text-white font-medium"
           )}
           key={`link-${idx}`}
           href={item.link}
@@ -160,9 +160,9 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
   return (
     <motion.div
       animate={{
-        backdropFilter: visible ? "blur(16px)" : "blur(10px)",
+        backdropFilter: visible ? "blur(20px)" : "blur(14px)",
         boxShadow: visible
-          ? "0 0 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.15)"
+          ? "0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(243, 186, 47, 0.25)"
           : "none",
         width: visible ? "95%" : "100%",
         paddingRight: visible ? "16px" : "12px",
@@ -176,8 +176,8 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 35,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-[#051424]/90 border border-white/10 px-4 py-2.5 lg:hidden rounded-full backdrop-blur-md shadow-2xl",
-        visible && "bg-[#051424]/95 border-amber-400/30",
+        "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-[#0E121B]/90 border border-white/10 px-4 py-2.5 lg:hidden rounded-full backdrop-blur-xl shadow-2xl font-sans",
+        visible && "bg-[#0E121B]/95 border-[#F3BA2F]/30",
         className,
       )}
     >
@@ -193,7 +193,7 @@ export const MobileNavHeader = ({
   return (
     <div
       className={cn(
-        "flex w-full flex-row items-center justify-between",
+        "flex w-full flex-row items-center justify-between font-sans",
         className,
       )}
     >
@@ -216,7 +216,7 @@ export const MobileNavMenu = ({
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-2xl bg-[#051424] border border-white/15 px-6 py-6 shadow-2xl backdrop-blur-xl",
+            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-2xl bg-[#0E121B] border border-white/15 px-6 py-6 shadow-2xl backdrop-blur-xl font-sans",
             className,
           )}
         >

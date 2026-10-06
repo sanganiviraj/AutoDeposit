@@ -224,7 +224,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#05070B] text-[#D4E4FA] font-sans selection:bg-[#F3BA2F] selection:text-[#0B0F17] relative">
+    <div className="min-h-screen bg-[#080A0F] text-slate-100 font-sans selection:bg-[#F3BA2F] selection:text-[#0B0F17] relative">
       {/* WebGL 2D Simplex Noise Shader Canvas Background */}
       <ShaderBackground />
 
@@ -261,7 +261,7 @@ export const App: React.FC = () => {
                   <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                     Batch Token Distribution
                   </h1>
-                  <p className="text-sm text-[#D3C5AD]/80 mt-1 max-w-xl">
+                  <p className="text-sm text-slate-400 mt-1 max-w-xl">
                     Distribute BEP-20 tokens to up to 100 wallet addresses in a single atomic transaction.
                   </p>
                 </div>
@@ -276,7 +276,7 @@ export const App: React.FC = () => {
                       <Coins className="w-6 h-6" />
                     </div>
                     <div>
-                      <span className="text-[11px] font-mono font-bold text-[#D3C5AD]/70 uppercase tracking-wider block">
+                      <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
                         BNB Gas Balance
                       </span>
                       <div className="flex items-baseline gap-1.5 mt-0.5">
@@ -292,18 +292,18 @@ export const App: React.FC = () => {
 
                   {/* Token Balance */}
                   <div className="flex items-center gap-3.5">
-                    <div className="p-3 bg-emerald-500/10 rounded-2xl text-[#6BF8BA] border border-emerald-500/20">
+                    <div className="p-3 bg-emerald-500/10 rounded-2xl text-emerald-400 border border-emerald-500/20">
                       <Wallet className="w-6 h-6" />
                     </div>
                     <div>
-                      <span className="text-[11px] font-mono font-bold text-[#D3C5AD]/70 uppercase tracking-wider block">
+                      <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
                         {tokenSymbol} Transfer Balance
                       </span>
                       <div className="flex items-baseline gap-1.5 mt-0.5">
                         <span className="text-2xl font-extrabold text-white font-mono">
                           {isConnected ? formattedBalance : '0.00'}
                         </span>
-                        <span className="text-xs font-bold text-[#6BF8BA]">{tokenSymbol}</span>
+                        <span className="text-xs font-bold text-emerald-400">{tokenSymbol}</span>
                       </div>
                     </div>
                   </div>
@@ -325,9 +325,9 @@ export const App: React.FC = () => {
                       value={customTokenAddr}
                       onChange={(e) => setCustomTokenAddr(e.target.value)}
                       placeholder={`Default: ${defaultToken.address}`}
-                      className="w-full sm:w-80 px-3.5 py-2 bg-[#05070B] border border-white/10 rounded-xl text-xs font-mono text-white focus:outline-none focus:border-[#F3BA2F]/70 placeholder:text-slate-600 transition-colors"
+                      className="w-full sm:w-80 px-3.5 py-2 bg-[#080A0F] border border-white/10 rounded-xl text-xs font-mono text-white focus:outline-none focus:border-[#F3BA2F]/70 placeholder:text-slate-600 transition-colors"
                     />
-                    <span className="block text-[10px] text-[#D3C5AD]/60 mt-1">
+                    <span className="block text-[10px] text-slate-400 mt-1">
                       Default: Official USDT. Paste custom BEP-20 token address if needed.
                     </span>
                   </div>
