@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useId } from "react";
+import React, { useState, useEffect, useId, useMemo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -35,24 +35,39 @@ export function ContainerTextFlip({
     return () => clearInterval(intervalId);
   }, [words, interval]);
 
+  // Find the longest word to lock the width of the badge container and prevent layout shift
+  const longestWord = useMemo(() => {
+    if (!words || words.length === 0) return "";
+    return words.reduce((longest, current) => (current.length > longest.length ? current : longest), words[0]);
+  }, [words]);
+
   return (
     <span
       className={cn(
-        "relative inline-flex items-center justify-center min-w-[140px] sm:min-w-[190px] rounded-xl py-0.5 px-3 text-center font-extrabold text-[#F3BA2F] align-middle transition-all shadow-[0_0_20px_rgba(243,186,47,0.25)] border border-[#F3BA2F]/40 bg-[#F3BA2F]/10 backdrop-blur-md overflow-hidden my-0.5",
-        className,
+        "relative inline-flex items-center justify-center rounded-xl py-1 px-4 font-extrabold text-[#F3BA2F] align-middle transition-all border border-[#F3BA2F]/35 bg-[#F3BA2F]/10 backdrop-blur-md overflow-hidden mx-1.5 shadow-[0_0_18px_rgba(243,186,47,0.18)] select-none",
+        className
       )}
     >
+      {/* Invisible text ghost matching the longest word to guarantee rock-solid constant width */}
+      <span className="invisible opacity-0 select-none whitespace-nowrap leading-none font-extrabold px-0.5" aria-hidden="true">
+        {longestWord}
+      </span>
+
+      {/* Animated active word centered absolutely over the ghost container */}
       <AnimatePresence mode="wait">
         <motion.span
           key={`flip-word-${currentWordIndex}-${id}`}
-          initial={{ y: 12, opacity: 0, filter: "blur(4px)" }}
+          initial={{ y: 14, opacity: 0, filter: "blur(3px)" }}
           animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
-          exit={{ y: -12, opacity: 0, filter: "blur(4px)" }}
+          exit={{ y: -14, opacity: 0, filter: "blur(3px)" }}
           transition={{
             duration: animationDuration / 1000,
             ease: [0.23, 1, 0.32, 1],
           }}
-          className={cn("inline-block text-center whitespace-nowrap leading-none", textClassName)}
+          className={cn(
+            "absolute inset-0 flex items-center justify-center text-center whitespace-nowrap leading-none font-extrabold text-[#F3BA2F]",
+            textClassName
+          )}
         >
           {words[currentWordIndex]}
         </motion.span>

@@ -33,7 +33,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
   };
 
   return (
-    <div className="w-full text-[#D4E4FA] animate-in pb-0 selection:bg-[#F3BA2F] selection:text-[#0B0F17]">
+    <div className="w-full text-slate-200 animate-in pb-0 selection:bg-[#F3BA2F] selection:text-[#0B0F17]">
       {/* 1. Hero Section with Background Beams Collision */}
       <BackgroundBeamsWithCollision className="min-h-screen pt-20 pb-16">
         <section className="relative w-full px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto overflow-hidden z-10" id="hero-section">
@@ -41,28 +41,26 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
 
           {/* Left Text */}
           <div className="lg:col-span-7 flex flex-col gap-6 text-left relative z-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 w-fit">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F3BA2F]/10 border border-[#F3BA2F]/25 w-fit">
               <span className="w-2 h-2 rounded-full bg-[#F3BA2F] animate-pulse"></span>
               <span className="text-[11px] font-mono font-bold text-[#F3BA2F] uppercase tracking-wider">
                 NON-CUSTODIAL WEB3 PAYMENTS
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white text-glow leading-tight">
-              <span className="inline-flex flex-wrap items-center gap-x-2.5">
-                <span>Send tokens to</span>
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.2]">
+              <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-2">
+                <span className="text-white font-extrabold">Send tokens to</span>
                 <ContainerTextFlip
                   words={['hundreds', 'thousands', 'multiple', 'scalable']}
                   interval={2800}
                 />
-                <span>of wallets.</span>
+                <span className="text-white font-extrabold">of wallets.</span>
               </span>
-              <span className="text-[#D3C5AD] block mt-3">In one transaction.</span>
+              <span className="text-white block mt-3 font-extrabold">In one transaction.</span>
             </h1>
 
-
-
-            <p className="text-base sm:text-lg text-[#D3C5AD] max-w-xl leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-300 max-w-xl leading-relaxed font-normal">
               AutoDeposit lets you distribute USDT and other BEP-20 tokens across multiple wallets with one transparent, wallet-signed transaction.
             </p>
 
@@ -77,21 +75,21 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
 
               <button
                 onClick={() => scrollToSection('process')}
-                className="px-8 py-4 rounded-xl font-bold text-sm text-[#D4E4FA] border border-white/10 hover:bg-white/5 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer"
+                className="px-8 py-4 rounded-xl font-semibold text-sm text-white border border-white/10 hover:bg-white/5 backdrop-blur-md transition-all duration-300 active:scale-95 cursor-pointer"
               >
                 How It Works
               </button>
             </div>
 
             {/* Micro Specs Bar */}
-            <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-white/10 font-mono text-xs text-[#D3C5AD]/70">
+            <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-white/10 font-mono text-xs text-slate-400">
               <div className="flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-[#6BF8BA]" />
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span>Non-custodial</span>
               </div>
               <span>•</span>
               <div className="flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-[#5B8CFF]" />
+                <FileText className="w-4 h-4 text-blue-400" />
                 <span>Wallet-signed</span>
               </div>
               <span>•</span>
@@ -119,20 +117,20 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
               <div className="space-y-4">
                 <div className="flex justify-between items-end">
                   <div>
-                    <div className="text-xs text-[#D3C5AD] mb-1">Total Distribution</div>
+                    <div className="text-xs text-slate-400 mb-1">Total Distribution</div>
                     <div className="font-mono text-2xl font-bold text-white">
                       12,450.00 <span className="text-[#F3BA2F] text-sm">USDT</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-xs text-[#D3C5AD] mb-1">Recipients</div>
-                    <div className="font-mono text-2xl font-bold text-[#6BF8BA]">48</div>
+                    <div className="text-xs text-slate-400 mb-1">Recipients</div>
+                    <div className="font-mono text-2xl font-bold text-emerald-400">48</div>
                   </div>
                 </div>
 
                 {/* Table */}
-                <div className="border border-white/5 rounded-xl bg-[#080B12] overflow-hidden text-xs font-mono">
-                  <div className="grid grid-cols-2 p-3 border-b border-white/5 bg-white/5 text-[#D3C5AD] uppercase text-[10px] font-bold">
+                <div className="border border-white/5 rounded-xl bg-[#090C14] overflow-hidden text-xs font-mono">
+                  <div className="grid grid-cols-2 p-3 border-b border-white/5 bg-white/5 text-slate-400 uppercase text-[10px] font-bold">
                     <div>Address</div>
                     <div className="text-right">Amount</div>
                   </div>
@@ -164,29 +162,29 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
       </BackgroundBeamsWithCollision>
 
       {/* 2. Trust Bar / Live Statistics */}
-      <section className="py-10 border-y border-white/5 bg-[#051424]/40 backdrop-blur-sm relative z-10">
+      <section className="py-10 border-y border-white/10 bg-[#0E121B]/60 backdrop-blur-md relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-white/5 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 divide-x divide-white/10 text-center">
             <div className="px-4">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-[#D3C5AD] mb-1">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
                 Total Volume Processed
               </div>
-              <div className="text-3xl font-extrabold font-mono text-[#F3BA2F] text-glow">
+              <div className="text-3xl font-extrabold font-mono text-[#F3BA2F]">
                 $45M+
               </div>
             </div>
 
             <div className="px-4">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-[#D3C5AD] mb-1">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
                 Transactions
               </div>
-              <div className="text-3xl font-extrabold font-mono text-[#F3BA2F] text-glow">
+              <div className="text-3xl font-extrabold font-mono text-[#F3BA2F]">
                 125K+
               </div>
             </div>
 
             <div className="px-4">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-[#D3C5AD] mb-1">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
                 Supported Networks
               </div>
               <div className="text-3xl font-extrabold font-mono text-white">
@@ -195,10 +193,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
             </div>
 
             <div className="px-4">
-              <div className="text-[11px] font-mono uppercase tracking-wider text-[#D3C5AD] mb-1">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-1">
                 Uptime
               </div>
-              <div className="text-3xl font-extrabold font-mono text-[#6BF8BA]">
+              <div className="text-3xl font-extrabold font-mono text-emerald-400">
                 99.99%
               </div>
             </div>
@@ -212,52 +210,52 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-4">
             Enterprise-Grade Infrastructure
           </h2>
-          <p className="text-[#D3C5AD] text-base max-w-2xl mx-auto">
+          <p className="text-slate-300 text-base max-w-2xl mx-auto">
             Built for scale, security, and precision.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Card 1 */}
-          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/30 transition-all duration-300">
-            <div className="w-12 h-12 rounded-full bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
+          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/40 transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
               <Key className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">Non-Custodial Design</h3>
-            <p className="text-sm text-[#D3C5AD] leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed">
               Your private keys never leave your device. AutoDeposit facilitates the transaction directly between your wallet and the smart contract, ensuring you retain full control of your assets at all times.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/30 transition-all duration-300">
-            <div className="w-12 h-12 rounded-full bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
+          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/40 transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
               <CheckSquare className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">Exact Amount Approvals</h3>
-            <p className="text-sm text-[#D3C5AD] leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed">
               We enforce strict security best practices by requesting approval only for the exact amount needed for your distribution, preventing the risk of unlimited token allowances.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/30 transition-all duration-300">
-            <div className="w-12 h-12 rounded-full bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
+          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/40 transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
               <Zap className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">Atomic Execution</h3>
-            <p className="text-sm text-[#D3C5AD] leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed">
               Distributions occur within a single atomic transaction. Either all transfers succeed, or the entire transaction reverts, eliminating the risk of partial, messy distributions.
             </p>
           </div>
 
           {/* Card 4 */}
-          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/30 transition-all duration-300">
-            <div className="w-12 h-12 rounded-full bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
+          <div className="glass-card p-8 rounded-2xl border border-white/10 hover:border-[#F3BA2F]/40 transition-all duration-300">
+            <div className="w-12 h-12 rounded-xl bg-[#F3BA2F]/10 border border-[#F3BA2F]/20 flex items-center justify-center mb-6 text-[#F3BA2F]">
               <FileSpreadsheet className="w-6 h-6" />
             </div>
             <h3 className="text-xl font-bold text-white mb-3">CSV Powered Automation</h3>
-            <p className="text-sm text-[#D3C5AD] leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed">
               Seamlessly import thousands of addresses and unique token amounts via standard CSV files. Our parser validates data instantly, highlighting errors before you sign.
             </p>
           </div>
@@ -265,7 +263,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
       </section>
 
       {/* 4. The Distribution Process (Process Flow) */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 bg-[#051424]/30 border-y border-white/5" id="process">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 bg-[#0B0E17] border-y border-white/10" id="process">
         <div className="max-w-7xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white mb-16">
             The Distribution Process
@@ -277,47 +275,47 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
 
             {/* Step 1 */}
             <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-14 h-14 rounded-full bg-[#051424] border border-[#F3BA2F] text-[#F3BA2F] font-bold text-xl flex items-center justify-center shadow-[0_0_15px_rgba(243,186,47,0.2)]">
+              <div className="w-14 h-14 rounded-full bg-[#0E121B] border border-[#F3BA2F] text-[#F3BA2F] font-bold text-xl flex items-center justify-center shadow-[0_0_15px_rgba(243,186,47,0.2)]">
                 1
               </div>
               <h4 className="font-bold text-white text-base">Connect</h4>
-              <p className="text-xs text-[#D3C5AD] max-w-[150px]">Link your web3 wallet to the dApp.</p>
+              <p className="text-xs text-slate-400 max-w-[150px]">Link your web3 wallet to the dApp.</p>
             </div>
 
             {/* Step 2 */}
             <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-14 h-14 rounded-full bg-[#051424] border border-white/20 text-[#D4E4FA] font-bold text-xl flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full bg-[#0E121B] border border-white/20 text-slate-200 font-bold text-xl flex items-center justify-center">
                 2
               </div>
               <h4 className="font-bold text-white text-base">Add</h4>
-              <p className="text-xs text-[#D3C5AD] max-w-[150px]">Upload CSV or input addresses manually.</p>
+              <p className="text-xs text-slate-400 max-w-[150px]">Upload CSV or input addresses manually.</p>
             </div>
 
             {/* Step 3 */}
             <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-14 h-14 rounded-full bg-[#051424] border border-white/20 text-[#D4E4FA] font-bold text-xl flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full bg-[#0E121B] border border-white/20 text-slate-200 font-bold text-xl flex items-center justify-center">
                 3
               </div>
               <h4 className="font-bold text-white text-base">Review</h4>
-              <p className="text-xs text-[#D3C5AD] max-w-[150px]">Verify amounts and recipient count.</p>
+              <p className="text-xs text-slate-400 max-w-[150px]">Verify amounts and recipient count.</p>
             </div>
 
             {/* Step 4 */}
             <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-14 h-14 rounded-full bg-[#051424] border border-white/20 text-[#D4E4FA] font-bold text-xl flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full bg-[#0E121B] border border-white/20 text-slate-200 font-bold text-xl flex items-center justify-center">
                 4
               </div>
               <h4 className="font-bold text-white text-base">Approve</h4>
-              <p className="text-xs text-[#D3C5AD] max-w-[150px]">Sign exact token allowance.</p>
+              <p className="text-xs text-slate-400 max-w-[150px]">Sign exact token allowance.</p>
             </div>
 
             {/* Step 5 */}
             <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-14 h-14 rounded-full bg-[#051424] border border-white/20 text-[#D4E4FA] font-bold text-xl flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full bg-[#0E121B] border border-white/20 text-slate-200 font-bold text-xl flex items-center justify-center">
                 5
               </div>
               <h4 className="font-bold text-white text-base">Send</h4>
-              <p className="text-xs text-[#D3C5AD] max-w-[150px]">Execute single batch transaction.</p>
+              <p className="text-xs text-slate-400 max-w-[150px]">Execute single batch transaction.</p>
             </div>
           </div>
         </div>
@@ -331,7 +329,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
               Engineered for Absolute Security
             </h2>
-            <p className="text-base text-[#D3C5AD] leading-relaxed">
+            <p className="text-base text-slate-300 leading-relaxed">
               AutoDeposit's architecture ensures your assets are never at risk. We utilize established patterns to guarantee a trustless environment.
             </p>
 
@@ -340,7 +338,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
                 <CheckCircle2 className="w-5 h-5 text-[#F3BA2F] shrink-0 mt-0.5" />
                 <div>
                   <div className="font-bold text-white text-sm">Private Key Isolation</div>
-                  <div className="text-xs text-[#D3C5AD] leading-relaxed mt-0.5">
+                  <div className="text-xs text-slate-400 leading-relaxed mt-0.5">
                     Your private key remains encrypted within your wallet (e.g., MetaMask). The dApp only requests cryptographic signatures.
                   </div>
                 </div>
@@ -350,7 +348,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
                 <CheckCircle2 className="w-5 h-5 text-[#F3BA2F] shrink-0 mt-0.5" />
                 <div>
                   <div className="font-bold text-white text-sm">Stateless Contracts</div>
-                  <div className="text-xs text-[#D3C5AD] leading-relaxed mt-0.5">
+                  <div className="text-xs text-slate-400 leading-relaxed mt-0.5">
                     Our smart contracts do not hold funds. They act purely as a routing mechanism during the exact block of execution.
                   </div>
                 </div>
@@ -358,8 +356,8 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
             </ul>
 
             <div className="pt-4">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-xs text-[#D3C5AD]">
-                <ShieldCheck className="w-4 h-4 text-[#6BF8BA]" />
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-xs text-slate-300">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
                 <span className="font-mono font-bold uppercase tracking-wider">OpenZeppelin Standard</span>
               </div>
             </div>
@@ -389,7 +387,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
               </div>
 
               {/* Contract */}
-              <div className="p-4 rounded-xl border border-white/10 bg-[#051424] flex items-center justify-between">
+              <div className="p-4 rounded-xl border border-white/10 bg-[#0B0E17] flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center text-slate-300">
                     <FileText className="w-5 h-5" />
@@ -410,13 +408,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
 
               {/* Recipients */}
               <div className="grid grid-cols-3 gap-2">
-                <div className="p-3 rounded-lg border border-white/5 bg-[#051424]/60 text-center font-mono text-xs text-slate-300">
+                <div className="p-3 rounded-lg border border-white/5 bg-[#0B0E17] text-center font-mono text-xs text-slate-300">
                   Recipient 1
                 </div>
-                <div className="p-3 rounded-lg border border-white/5 bg-[#051424]/60 text-center font-mono text-xs text-slate-300">
+                <div className="p-3 rounded-lg border border-white/5 bg-[#0B0E17] text-center font-mono text-xs text-slate-300">
                   Recipient 2
                 </div>
-                <div className="p-3 rounded-lg border border-white/5 bg-[#051424]/60 text-center font-mono text-xs text-slate-300">
+                <div className="p-3 rounded-lg border border-white/5 bg-[#0B0E17] text-center font-mono text-xs text-slate-300">
                   Recipient N
                 </div>
               </div>
@@ -426,9 +424,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
       </section>
 
       {/* 6. Network Section (Native to BNB Smart Chain) */}
-      <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 bg-[#F0B90B]/5 border-y border-[#F0B90B]/10" id="network">
+      <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 bg-[#F3BA2F]/5 border-y border-[#F3BA2F]/10" id="network">
         <div className="max-w-7xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#F0B90B]/20 text-[#F0B90B] mx-auto mb-2 shadow-[0_0_20px_rgba(240,185,11,0.2)]">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#F3BA2F]/15 text-[#F3BA2F] mx-auto mb-2 shadow-[0_0_20px_rgba(243,186,47,0.15)] border border-[#F3BA2F]/30">
             <Coins className="w-8 h-8" />
           </div>
 
@@ -436,50 +434,50 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
             Native to BNB Smart Chain
           </h2>
 
-          <p className="text-base text-[#D3C5AD] max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
             Optimized specifically for BSC's low-latency, high-throughput environment. Send to thousands of addresses with near-zero gas fees.
           </p>
 
           <div className="flex justify-center items-center gap-8 pt-4">
             <div className="text-center">
-              <div className="font-mono text-2xl font-bold text-[#F0B90B]">BEP-20</div>
-              <div className="text-[11px] font-mono uppercase text-[#D3C5AD] mt-1">Full Token Support</div>
+              <div className="font-mono text-2xl font-bold text-[#F3BA2F]">BEP-20</div>
+              <div className="text-[11px] font-mono uppercase text-slate-400 mt-1">Full Token Support</div>
             </div>
             <div className="w-px h-10 bg-white/10"></div>
             <div className="text-center">
-              <div className="font-mono text-2xl font-bold text-[#F0B90B]">~0.01 BNB</div>
-              <div className="text-[11px] font-mono uppercase text-[#D3C5AD] mt-1">Avg Batch Gas Cost</div>
+              <div className="font-mono text-2xl font-bold text-[#F3BA2F]">~0.01 BNB</div>
+              <div className="text-[11px] font-mono uppercase text-slate-400 mt-1">Avg Batch Gas Cost</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 7. Features Grid (Gas Optimized, OpenZeppelin Standard, BEP-20 Native) */}
+      {/* 7. Features Grid */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto relative z-10" id="features">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Card 1 */}
-          <div className="glass-card p-8 rounded-2xl border border-white/10 space-y-4">
+          <div className="glass-card p-8 rounded-2xl border border-white/10 space-y-4 hover:border-[#F3BA2F]/30 transition-all">
             <Gauge className="w-10 h-10 text-[#F3BA2F]" />
             <h3 className="text-xl font-bold text-white">Gas Optimized</h3>
-            <p className="text-sm text-[#D3C5AD] leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed">
               Distribute to hundreds of wallets in seconds. Our smart contracts use advanced assembly and memory packing to minimize gas costs on the BNB Smart Chain.
             </p>
           </div>
 
           {/* Card 2 */}
-          <div className="glass-card p-8 rounded-2xl border border-white/10 space-y-4">
+          <div className="glass-card p-8 rounded-2xl border border-white/10 space-y-4 hover:border-[#F3BA2F]/30 transition-all">
             <Shield className="w-10 h-10 text-[#F3BA2F]" />
             <h3 className="text-xl font-bold text-white">OpenZeppelin Standard</h3>
-            <p className="text-sm text-[#D3C5AD] leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed">
               Fully non-custodial smart contracts built on OpenZeppelin primitives and audited by industry-leading security firms for maximum peace of mind.
             </p>
           </div>
 
           {/* Card 3 */}
-          <div className="glass-card p-8 rounded-2xl border border-white/10 space-y-4">
+          <div className="glass-card p-8 rounded-2xl border border-white/10 space-y-4 hover:border-[#F3BA2F]/30 transition-all">
             <Coins className="w-10 h-10 text-[#F3BA2F]" />
             <h3 className="text-xl font-bold text-white">BEP-20 Native</h3>
-            <p className="text-sm text-[#D3C5AD] leading-relaxed">
+            <p className="text-sm text-slate-300 leading-relaxed">
               Deep integration with all standard BEP-20 tokens (USDT, USDC, BUSD). Supports all major web3 wallets and seamlessly integrates with your workflow.
             </p>
           </div>
@@ -489,10 +487,10 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
       {/* 8. Final CTA Banner */}
       <section className="py-24 px-4 sm:px-6 lg:px-8 relative z-10 text-center" id="cta">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white text-glow">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
             Ready to streamline your distributions?
           </h2>
-          <p className="text-base text-[#D3C5AD]">
+          <p className="text-base text-slate-300">
             Connect your wallet and experience the fastest, most secure way to send tokens on the BNB Smart Chain.
           </p>
           <button
@@ -506,22 +504,22 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
       </section>
 
       {/* 9. Complete Footer */}
-      <footer className="bg-[#010F1F] w-full py-16 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative z-10">
+      <footer className="bg-[#0B0E17] w-full py-16 px-4 sm:px-6 lg:px-8 border-t border-white/10 relative z-10">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-10">
           <div className="md:col-span-2 space-y-4">
             <div className="font-extrabold text-2xl text-[#F3BA2F] tracking-tight">AutoDeposit</div>
-            <p className="text-xs text-[#D3C5AD]/60 max-w-sm leading-relaxed">
+            <p className="text-xs text-slate-400 max-w-sm leading-relaxed">
               Premium Web3 Infrastructure for non-custodial multisender protocols. Secure, fast, and optimized for scale.
             </p>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#122131] border border-white/5 w-fit">
-              <span className="w-2 h-2 rounded-full bg-[#6BF8BA] animate-pulse"></span>
-              <span className="text-[11px] font-mono text-[#D3C5AD]">BSC Network: Operational</span>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 w-fit">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span className="text-[11px] font-mono text-slate-300">BSC Network: Operational</span>
             </div>
           </div>
 
           <div>
             <h4 className="font-bold text-sm text-white mb-4">Product</h4>
-            <ul className="space-y-2.5 text-xs text-[#D3C5AD]/80">
+            <ul className="space-y-2.5 text-xs text-slate-400">
               <li><button onClick={onLaunchApp} className="hover:text-[#F3BA2F] transition-colors cursor-pointer">Launch App</button></li>
               <li><a href="#process" className="hover:text-[#F3BA2F] transition-colors">How it Works</a></li>
               <li><a href="#premium-features" className="hover:text-[#F3BA2F] transition-colors">Pricing</a></li>
@@ -531,7 +529,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
 
           <div>
             <h4 className="font-bold text-sm text-white mb-4">Developers</h4>
-            <ul className="space-y-2.5 text-xs text-[#D3C5AD]/80">
+            <ul className="space-y-2.5 text-xs text-slate-400">
               <li><a href="#security" className="hover:text-[#F3BA2F] transition-colors">Documentation</a></li>
               <li><a href="#security" className="hover:text-[#F3BA2F] transition-colors">Smart Contracts</a></li>
               <li><a href="#security" className="hover:text-[#F3BA2F] transition-colors">Security Audit</a></li>
@@ -541,7 +539,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
 
           <div>
             <h4 className="font-bold text-sm text-white mb-4">Network & Legal</h4>
-            <ul className="space-y-2.5 text-xs text-[#D3C5AD]/80">
+            <ul className="space-y-2.5 text-xs text-slate-400">
               <li><a href="#network" className="hover:text-[#F3BA2F] transition-colors">BNB Smart Chain</a></li>
               <li><a href="#" className="hover:text-[#F3BA2F] transition-colors">Terms of Service</a></li>
               <li><a href="#" className="hover:text-[#F3BA2F] transition-colors">Privacy Policy</a></li>
@@ -550,11 +548,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onLaunchApp }) => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-[#D3C5AD]/60">
+        <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <div>© 2024 AutoDeposit. Non-custodial multisender protocol.</div>
           <div className="flex gap-4">
-            <Rocket className="w-4 h-4 text-[#D3C5AD]/60 hover:text-[#F3BA2F] cursor-pointer" />
-            <Code className="w-4 h-4 text-[#D3C5AD]/60 hover:text-[#F3BA2F] cursor-pointer" />
+            <Rocket className="w-4 h-4 text-slate-400 hover:text-[#F3BA2F] cursor-pointer" />
+            <Code className="w-4 h-4 text-slate-400 hover:text-[#F3BA2F] cursor-pointer" />
           </div>
         </div>
       </footer>

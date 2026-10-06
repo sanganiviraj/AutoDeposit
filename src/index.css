@@ -1,23 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
 :root {
-  --bg-surface: #051424;
-  --bg-canvas: #05070B;
+  --bg-surface: #0E121B;
+  --bg-canvas: #080A0F;
   --primary-gold: #F3BA2F;
-  --primary-fixed-dim: #F7BE33;
-  --secondary-blue: #5B8CFF;
-  --tertiary-emerald: #6BF8BA;
-  --on-surface: #D4E4FA;
-  --on-surface-variant: #D3C5AD;
+  --primary-gold-dim: rgba(243, 186, 47, 0.15);
+  --on-surface: #F8FAFC;
+  --on-surface-variant: #94A3B8;
+  --border-card: rgba(255, 255, 255, 0.08);
 }
 
 @layer base {
+  * {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
   body {
     background-color: var(--bg-canvas);
     color: var(--on-surface);
-    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    antialiased: true;
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
   }
 
@@ -26,37 +30,38 @@
   }
 }
 
-/* Obsidian Infrastructure Glassmorphism & Layers */
+/* Premium Fintech Glassmorphism & Card Layers */
 .glass-card, .layer-1 {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%), rgba(11, 15, 23, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(14, 18, 27, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
 }
 
 .layer-2 {
-  background-color: #080B12;
-  border: 1px solid rgba(255, 255, 255, 0.04);
+  background-color: #0B0E17;
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .layer-floating {
-  background-color: #101726;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background-color: #121724;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
-/* Glow effects */
+/* Clean text glow */
 .text-glow {
-  text-shadow: 0 0 20px rgba(243, 186, 47, 0.35);
+  text-shadow: 0 0 24px rgba(243, 186, 47, 0.25);
 }
 
 .ambient-glow {
   position: absolute;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(243, 186, 47, 0.06) 0%, transparent 70%);
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(243, 186, 47, 0.04) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
   z-index: 0;
@@ -64,13 +69,13 @@
 
 .btn-primary {
   background-color: #F3BA2F;
-  color: #0B0F17;
-  font-weight: 700;
+  color: #090B10;
+  font-weight: 600;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 20px rgba(243, 186, 47, 0.4);
+  box-shadow: 0 0 20px rgba(243, 186, 47, 0.35);
   transform: translateY(-1px);
 }
 
@@ -79,15 +84,15 @@
 }
 
 .btn-secondary {
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #D4E4FA;
-  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #F1F5F9;
+  font-weight: 500;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -95,7 +100,7 @@
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: scale(0.98);
+    transform: scale(0.99);
   }
   to {
     opacity: 1;
@@ -114,7 +119,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: #080B12; 
+  background: #080A0F; 
   border-radius: 4px;
 }
 
