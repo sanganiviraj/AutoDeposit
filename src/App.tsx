@@ -7,6 +7,7 @@ import { NetworkWarning } from './components/NetworkWarning';
 import { SecurityWarnings } from './components/SecurityWarnings';
 import { SecurityShield } from './components/SecurityShield';
 import { CsvHandler } from './components/CsvHandler';
+import { AddressBook } from './components/AddressBook';
 import { RecipientTable } from './components/RecipientTable';
 import { PreviewModal } from './components/PreviewModal';
 import { TransactionStatus } from './components/TransactionStatus';
@@ -145,6 +146,10 @@ export const App: React.FC = () => {
   };
 
   const handleCsvImport = (imported: RecipientInput[]) => {
+    setRecipients(imported);
+  };
+
+  const handleLoadAddressBook = (imported: RecipientInput[]) => {
     setRecipients(imported);
   };
 
@@ -340,6 +345,13 @@ export const App: React.FC = () => {
                 <div className="lg:col-span-8 space-y-6">
                   {/* CSV Importer / Exporter */}
                   <CsvHandler onImport={handleCsvImport} currentRecipients={recipients} />
+
+                  {/* Address Book — saved recipient lists */}
+                  <AddressBook
+                    currentRecipients={recipients}
+                    onLoad={handleLoadAddressBook}
+                    tokenSymbol={tokenSymbol}
+                  />
 
                   {/* Recipient Table */}
                   <RecipientTable
