@@ -77,8 +77,15 @@ export function generateSampleCSV(): string {
  */
 export function exportToCSV(recipients: RecipientInput[]): string {
   const csvRows = recipients.map((r) => [r.address, r.amount]);
-  return Papa.unparse({
-    fields: ['address', 'amount'],
-    data: csvRows,
-  });
+  return Papa.unparse(
+    {
+      fields: ['address', 'amount'],
+      data: csvRows,
+    },
+    {
+      // Prefix cells starting with =, +, -, @, tab or CR so exported
+      // values can't execute as spreadsheet formulas (formula injection).
+      escapeFormulae: true,
+    }
+  );
 }

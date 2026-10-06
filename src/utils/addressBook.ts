@@ -20,7 +20,29 @@ export interface AddressBookList {
 
 const STORAGE_KEY = 'bsc_usdt_multisender_addressbook_v1';
 const MAX_LISTS = 50;
+const MAX_RECIPIENTS = 100;
 const MAX_NAME_LENGTH = 60;
+
+function isSavedRecipient(r: unknown): r is SavedRecipient {
+  return (
+    !!r &&
+    typeof r === 'object' &&
+    typeof (r as SavedRecipient).address === 'string' &&
+    typeof (r as SavedRecipient).amount === 'string'
+  );
+}
+
+function isAddressBookList(l: unknown): l is AddressBookList {
+  return (
+    !!l &&
+    typeof l === 'object' &&
+    typeof (l as AddressBookList).id === 'string' &&
+    typeof (l as AddressBookList).name === 'string' &&
+    typeof (l as AddressBookList).createdAt === 'number' &&
+    Array.isArray((l as AddressBookList).recipients) &&
+    (l as AddressBookList).recipients.every(isSavedRecipient)
+  );
+}
 
 function readRaw(): AddressBookList[] {
   if (typeof window === 'undefined') return [];
@@ -28,23 +50,35 @@ function readRaw(): AddressBookList[] {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
+    if (!Array.isArray(parsed)) return [];
+    // Drop corrupted / hand-edited entries instead of crashing the UI.
+    return parsed.filter(isAddressBookList);
   } catch (err) {
     console.error('Failed to load address book:', err);
     return [];
   }
 }
 
-function writeRaw(lists: AddressBookList[]): void {
+/** Returns false when the write failed (quota / disabled storage). */
+function writeRaw(lists: AddressBookList[]): boolean {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
+    return true;
   } catch (err) {
     console.error('Failed to save address book:', err);
+    return false;
   }
 }
 
 function makeId(): string {
   return `ab-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`;
+}
+
+/** Trims rows and drops fully-empty ones. Shared by save + update. */
+function sanitizeRecipients(recipients: SavedRecipient[]): SavedRecipient[] {
+  return recipients
+    .filter((r) => r.address.trim() !== '' || r.amount.trim() !== '')
+    .map((r) => ({ address: r.address.trim(), amount: r.amount.trim() }));
 }
 
 export function getAddressBookLists(): AddressBookList[] {
@@ -60,15 +94,12 @@ export function saveAddressBookList(
     return { list: null, error: 'Please enter a name for this list.' };
   }
 
-  const cleanRecipients = recipients
-    .filter((r) => r.address.trim() !== '' || r.amount.trim() !== '')
-    .map((r) => ({ address: r.address.trim(), amount: r.amount.trim() }));
-
+  const cleanRecipients = sanitizeRecipients(recipients);
   if (cleanRecipients.length === 0) {
     return { list: null, error: 'Add at least one recipient before saving.' };
   }
-  if (cleanRecipients.length > 100) {
-    return { list: null, error: 'A list can hold at most 100 recipients.' };
+  if (cleanRecipients.length > MAX_RECIPIENTS) {
+    return { list: null, error: `A list can hold at most ${MAX_RECIPIENTS} recipients.` };
   }
 
   const lists = readRaw();
@@ -83,7 +114,9 @@ export function saveAddressBookList(
     recipients: cleanRecipients,
   };
 
-  writeRaw([list, ...lists]);
+  if (!writeRaw([list, ...lists])) {
+    return { list: null, error: 'Could not save — browser storage is unavailable or full.' };
+  }
   return { list, error: null };
 }
 
@@ -97,12 +130,12 @@ export function updateAddressBookList(
   id: string,
   recipients: SavedRecipient[]
 ): { ok: boolean; error: string | null } {
-  const cleanRecipients = recipients
-    .filter((r) => r.address.trim() !== '' || r.amount.trim() !== '')
-    .map((r) => ({ address: r.address.trim(), amount: r.amount.trim() }));
-
+  const cleanRecipients = sanitizeRecipients(recipients);
   if (cleanRecipients.length === 0) {
     return { ok: false, error: 'Add at least one recipient before updating.' };
+  }
+  if (cleanRecipients.length > MAX_RECIPIENTS) {
+    return { ok: false, error: `A list can hold at most ${MAX_RECIPIENTS} recipients.` };
   }
 
   const lists = readRaw();
@@ -110,6 +143,8 @@ export function updateAddressBookList(
   if (idx === -1) return { ok: false, error: 'List not found.' };
 
   lists[idx] = { ...lists[idx], recipients: cleanRecipients };
-  writeRaw(lists);
+  if (!writeRaw(lists)) {
+    return { ok: false, error: 'Could not update — browser storage is unavailable or full.' };
+  }
   return { ok: true, error: null };
 }

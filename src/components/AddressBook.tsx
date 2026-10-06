@@ -98,6 +98,7 @@ export const AddressBook: React.FC<AddressBookProps> = ({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   const handleDelete = (id: string) => {
